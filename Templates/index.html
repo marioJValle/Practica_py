@@ -1,1 +1,35 @@
-<h1> Bienvenidos a la pagina principal </h1>
+{% extends 'base.html' %}
+
+{% block titulo %}Inicio{% endblock %}
+
+{% block contenido %}
+<!-- Encabezado principal -->
+<div class="container-fluid p-5 bg-primary text-white text-center">
+    <h1>Mi primera página de Bootstrap</h1>
+    <p>¡Cambie el tamaño de esta página responsiva para ver el efecto!</p>
+</div>
+
+<!-- Tres columnas -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-4">
+    <h3>Innovación Creativa</h3>
+    <p>Explora el poder de la innovación: ideas frescas que transforman lo cotidiano en experiencias únicas.</p>
+    <p>Imagina, crea y construye un futuro más brillante con proyectos que inspiran y motivan.</p>
+</div>
+
+<div class="col-sm-4">
+    <h3>Tecnología al Alcance</h3>
+    <p>La tecnología no solo avanza, ¡te invita a avanzar con ella! Descubre herramientas que hacen tu vida más fácil.</p>
+    <p>Aprender, experimentar y crecer nunca había sido tan emocionante.</p>
+</div>
+
+<div class="col-sm-4">
+    <h3>Ideas que Inspiran</h3>
+    <p>Conéctate con tu creatividad y convierte las grandes ideas en realidades tangibles.</p>
+    <p>Cada paso que das es una oportunidad para crecer, mejorar y dejar huella en el mundo.</p>
+</div>
+
+    </div>
+</div>
+{% endblock %}

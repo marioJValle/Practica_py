@@ -1,16 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block titulo  %}
-        
-    {% endblock  %}</title>
+    <meta charset="utf-8">
+    <title>{% block titulo %}Mi App{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='leonardo.png') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+    a.text-white:hover {
+        color: #0d6efd !important; /* Azul Bootstrap al pasar el mouse */
+        text-decoration: underline;
+    }
+    </style>
 </head>
 <body>
-    {% block contenido %}
-        
-    {% endblock  %}
-        
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('inicio') }}">Inicio</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('inicio') }}">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('contacto') }}">Contacto (GET)</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('contactopost') }}">Contacto (POST)</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('usuario') }}">Usuario</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ url_for('acercade') }}">Acerca de</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido dinámico -->
+    <main class="container mt-4">
+        {% block contenido %}{% endblock %}
+    </main>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container mt-5 bg-dark text-white p-4">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5>APP</h5>
+                    <p><a href="https://www.youtube.com/" target="_blank" class="text-white">YouTube</a></p>
+                    <p><a href="https://www.facebook.com/" target="_blank" class="text-white">Facebook</a></p>
+                </div>
+                <div class="col-sm-6">
+                    <h5>RECURSOS</h5>
+                    <p><a href="{{ url_for('acercade') }}" class="text-white">Acerca de...</a></p>
+                    <p><a href="{{ url_for('contacto') }}" class="text-white">Contactos</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mt-3 bg-light">
+            <p class="text-center">Copyright © 2025 - UNAN Managua</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
