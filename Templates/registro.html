@@ -1,21 +1,5 @@
-{% extends 'base.html' %}
- {% block titulo %} LOGIN {% endblock %} {% block
+{% extends 'base.html' %} {% block titulo %} REGISTRO {% endblock %} {% block
 contenido %}
-
-<!--MENSAJE DE ALERTA-->
-<!--MOSTRAR MENSAJES FLASH-->
-{%with msg = get_flashed_messages(with_categories=true) %}
-<!--validando si hay mensajes flash-->
-{%if msg %}
-<!--recorriendo los mensajes-->
-{%for category, message in msg %}
-<div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
-  {{message}}
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-{%endfor %}
-{%endif %}
-{%endwith %}
 <div
   class="container-fluid vh-100"
   style="background: linear-gradient(135deg, #d8d8d8, #7a7a7a)"
@@ -42,11 +26,11 @@ contenido %}
                 <!-- Imagen superior -->
                 <div class="mb-4">
                   <img
-                    src="{{ url_for('static', filename='Img/login.png') }}"
+                    src="{{ url_for('static', filename='Img/usuario.png') }}"
                     alt="Imagen Panel"
                     style="
-                      width: 200px;
-                      height: 200px;
+                      width: 300px;
+                      height: 300px;
                       object-fit: cover;
                       border-radius: 0;
                     "
@@ -54,25 +38,18 @@ contenido %}
                 </div>
 
                 <!-- Título -->
-                <h2 class="fw-bold mb-4 text-center">Bienvenido Nuevamente!</h2>
-                <p class="mb-5 text-center">
-                  Si aun no tienes una cuenta, por favor regístrese aquí
-                </p>
+                <h2 class="fw-bold mb-4 text-center">¡Bienvenido!</h2>
+                <p class="mb-5 text-center">Ingresar Informacion de Registro</p>
 
-                <!-- Botón Registrarse -->
-                <a
-                  href="{{ url_for('Registro') }}"
-                  class="btn btn-lg btn-register"
-                >
-                  Registrarse
-                </a>
+                <!-- Botón Iniciar Sesión -->
+                <a href="#" class="btn btn-lg btn-login"> Iniciar Sesión </a>
               </div>
             </div>
 
             <!-- Panel derecho -->
             <div class="col-md-6 col-lg-7 d-flex align-items-center">
               <div class="card-body p-4 p-lg-5 text-dark">
-                <h2 class="fw-bold mb-4 text-center">Iniciar Sesión</h2>
+                <h2 class="fw-bold mb-4 text-center">Bienvenidos</h2>
 
                 <!-- Botón de Google -->
                 <div class="d-grid mb-4">
@@ -85,26 +62,33 @@ contenido %}
                       alt="Google"
                       style="width: 20px; height: 20px; margin-right: 10px"
                     />
-                    Iniciar sesión con Google
+                    Registrarse con Google
                   </button>
                 </div>
 
                 <!-- Separador -->
                 <div class="d-flex justify-content-center my-4">
                   <p class="fw-bold mb-0 text-center text-muted">
-                    o Iniciar Sesión con una cuenta
+                    o Usar tu email para registrarte
                   </p>
                 </div>
 
                 <!-- Formulario -->
-                <form action="{{ url_for('accesologin') }}" method="POST">
+                <form action="{{ url_for('Registro') }}" method="POST">
+                  <div class="form-outline mb-4">
+                    <input
+                      type="text"
+                      name="nombre"
+                      class="form-control form-control-lg"
+                      placeholder="Nombre completo"
+                    />
+                  </div>
                   <div class="form-outline mb-4">
                     <input
                       type="email"
                       name="email"
                       class="form-control form-control-lg"
-                      placeholder="Ingresa tu correo electrónico"
-                      required
+                      placeholder="Correo electrónico"
                     />
                   </div>
                   <div class="form-outline mb-4">
@@ -112,24 +96,16 @@ contenido %}
                       type="password"
                       name="password"
                       class="form-control form-control-lg"
-                      placeholder="Ingresa tu contraseña"
-                      required
+                      placeholder="Contraseña"
                     />
                   </div>
 
-                  <!-- Botón Iniciar Sesión -->
+                  <!-- Botón Registrarse -->
                   <div class="d-grid">
-                    <button class="btn btn-lg btn-login" type="submit">
-                      Iniciar Sesión
+                    <button class="btn btn-lg btn-register" type="submit">
+                      Registrarse
                     </button>
                   </div>
-
-                 <!--  {% if error %} 
-                  <div class="alert alert-danger" role="alert"> 
-                    {{error }} 
-                  </div>
-                  {% endif %} -->
-
                 </form>
               </div>
             </div>
@@ -141,16 +117,16 @@ contenido %}
 </div>
 
 <style>
-  /* Botón Registrarse */
-  .btn-register {
-    background: linear-gradient(90deg, #0699ac, #262626, #ac069e);
+  /* Botón Iniciar Sesión */
+  .btn-login {
+    background: linear-gradient(90deg, #f2aacb, #16a2c0);
     color: white !important;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: transform 0.1s ease-in-out;
   }
-  .btn-register:active {
+  .btn-login:active {
     transform: scale(0.95);
   }
 
@@ -165,15 +141,27 @@ contenido %}
     transform: scale(0.95);
   }
 
-  /* Botón Iniciar Sesión */
-  .btn-login {
-    background: linear-gradient(135deg, #177af3, #3c4ff3) !important;
+  /* Botón Registrarse */
+  .btn-register {
+    background: linear-gradient(90deg, #8c11fa, #009ca0);
     color: white !important;
     border: none !important;
     transition: transform 0.1s ease-in-out;
   }
-  .btn-login:active {
+  .btn-register:active {
     transform: scale(0.95);
+  }
+
+  /* Ajustes para los inputs */
+  .form-control {
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+    padding: 12px 15px;
+  }
+
+  .form-control:focus {
+    border-color: #5078fa;
+    box-shadow: 0 0 0 0.2rem rgba(80, 120, 250, 0.25);
   }
 </style>
 

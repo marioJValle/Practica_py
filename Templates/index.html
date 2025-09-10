@@ -1,35 +1,130 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block titulo %}Inicio{% endblock %} {% block
+contenido %}
 
-{% block titulo %}Inicio{% endblock %}
-
-{% block contenido %}
-<!-- Encabezado principal -->
-<div class="container-fluid p-5 bg-primary text-white text-center">
-    <h1>Mi primera página de Bootstrap</h1>
-    <p>¡Cambie el tamaño de esta página responsiva para ver el efecto!</p>
-</div>
-
-<!-- Tres columnas -->
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-sm-4">
-    <h3>Innovación Creativa</h3>
-    <p>Explora el poder de la innovación: ideas frescas que transforman lo cotidiano en experiencias únicas.</p>
-    <p>Imagina, crea y construye un futuro más brillante con proyectos que inspiran y motivan.</p>
-</div>
-
-<div class="col-sm-4">
-    <h3>Tecnología al Alcance</h3>
-    <p>La tecnología no solo avanza, ¡te invita a avanzar con ella! Descubre herramientas que hacen tu vida más fácil.</p>
-    <p>Aprender, experimentar y crecer nunca había sido tan emocionante.</p>
-</div>
-
-<div class="col-sm-4">
-    <h3>Ideas que Inspiran</h3>
-    <p>Conéctate con tu creatividad y convierte las grandes ideas en realidades tangibles.</p>
-    <p>Cada paso que das es una oportunidad para crecer, mejorar y dejar huella en el mundo.</p>
-</div>
-
+<!-- Carousel -->
+<div
+  id="carouselExample"
+  class="carousel slide"
+  data-bs-ride="carousel"
+  data-bs-interval="2000"
+>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img
+        src="{{ url_for('static', filename='Img/img1.png') }}"
+        class="d-block w-100"
+        alt="..."
+      />
     </div>
+    <div class="carousel-item">
+      <img
+        src="{{ url_for('static', filename='Img/img2.webp') }}"
+        class="d-block w-100"
+        alt="..."
+      />
+    </div>
+    <div class="carousel-item">
+      <img
+        src="{{ url_for('static', filename='Img/img3.webp') }}"
+        class="d-block w-100"
+        alt="..."
+      />
+    </div>
+  </div>
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExample"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon"></span>
+    <span class="visually-hidden">Anterior</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExample"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon"></span>
+    <span class="visually-hidden">Siguiente</span>
+  </button>
 </div>
+
+<!-- Información -->
+<div class="container mt-5">
+  <h2 class="text-center mb-4">INFORMACIÓN</h2>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Importancia de la gestio de tareas</h5>
+          <p class="card-text">
+            La gestión de tareas es fundamental tanto a nivel personal como
+            organizacional porque permite organizar, planificar y controlar las
+            actividades que se deben realizar para alcanzar objetivos
+            específicos. Su importancia se puede resumir en los siguientes
+            puntos: Organización y claridad Permite desglosar proyectos grandes
+            en actividades más pequeñas y manejables. Ayuda a visualizar qué
+            tareas son prioritarias y cuáles pueden esperar. Productividad y
+            eficiencia Evita la pérdida de tiempo al reducir el desorden y la
+            improvisación. Facilita el uso óptimo de los recursos disponibles
+            (tiempo, personas, dinero).
+          </p>
+          <p class="card-text">
+            Responsabilidad y seguimiento Facilita la asignación de tareas a
+            personas específicas, lo que aumenta la responsabilidad individual.
+            Permite monitorear el progreso y hacer ajustes si es necesario.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Ventajas</h5>
+          <p class="card-text">
+            Mejora la organización Permite estructurar el trabajo de forma
+            ordenada y clara. Incrementa la productividad Se aprovecha mejor el
+            tiempo y los recursos. Cumplimiento de plazos Ayuda a entregar
+            proyectos y actividades en el tiempo establecido. Priorización
+            efectiva Se enfoca en lo más importante y urgente primero. Mejor
+            comunicación en equipos Facilita la asignación de responsabilidades
+            y la colaboración. Mayor control del progreso Permite dar
+            seguimiento a las tareas y detectar retrasos. Reducción del estrés y
+            la improvisación Tener un plan disminuye la presión y la
+            incertidumbre. Facilita la toma de decisiones Con la información
+            clara de las tareas, se elige mejor qué hacer y cuándo.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Desventajas</h5>
+          <p class="card-text">
+            Consumo de tiempo en la planificación Organizar, registrar y dar
+            seguimiento a cada tarea puede llevar bastante tiempo. Rigidez
+            excesiva Si se sigue el plan de forma muy estricta, puede dificultar
+            la flexibilidad ante imprevistos. Sobrecarga de información Cuando
+            se gestionan demasiadas tareas, el sistema puede volverse complejo y
+            generar confusión. Dependencia de herramientas Requiere
+            plataformas,software o métodos de organización; si fallan, afecta el
+            control. Posible desmotivación Un exceso de tareas pendientes puede
+            causar ansiedad o sensación de agobio. No garantiza la productividad
+            Una buena gestión organiza el trabajo, pero si no hay disciplina,
+            las tareas igualmente pueden quedar sin hacerse. Distracción en la
+            gestión misma A veces se dedica más tiempo a “organizar la lista de
+            tareas” que a realizarlas.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
 {% endblock %}
