@@ -50,6 +50,7 @@ def accesologin():
 @app.route('/')
 def inicio():
     return render_template("index.html")
+
 @app.route('/contacto', methods=['GET', 'POST'])
 def contacto():
     user = {'nombre': '', 'email': '', 'mensaje': ''}
@@ -97,7 +98,27 @@ def usuario():
 @app.route('/acercade')
 def acercade():
     return render_template("acercade.html")
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect (url_for('inicio'))
+
+@app.route('/listar_productos_agregados')
+def listar_productos_agregados():
+    return render_template ("listar_productos_agregados.html")
    
+@app.route('/listar_productos')
+def listar_productos():
+    return render_template ("listar_productos.html")
+
+@app.route('/listar')
+def listar():
+    return render_template ("perfil.html", usuario=session.get('usuario')) 
+ 
+@app.route('/admin')
+def admin():
+    return render_template ("admin.html")
 
 # ----------------- MAIN -----------------
 if __name__ == '__main__':
