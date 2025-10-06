@@ -7,7 +7,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
 # Inicializamos la aplicación Flask
-app = Flask(__name__, template_folder='templates', static_folder='static')
+app = Flask(__name__, template_folder='Templates')
 
 app.secret_key = 'appsecretkey' #clave secreta para la sesion
 
