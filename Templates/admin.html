@@ -91,7 +91,7 @@ endblock %} {% block body %}
                   <h5 class="card-title">Registrar Tareas</h5>
                   <!-- <p class="card-text">Agregar los productos al sistema</p> -->
                   <a
-                    href="{{ url_for('listar_productos_agregados') }}"
+                    href="{{ url_for('tareas_agregadas') }}"
                     class="btn btn-outline-success"
                     >Ver Detalles</a
                   >
@@ -99,7 +99,7 @@ endblock %} {% block body %}
               </div>
             </div>
             <div class="col-md-4 align-content-center">
-              <a href="{{ url_for('listar_productos_agregados') }}">
+              <a href="{{ url_for('tareas_agregadas') }}">
                 <img
                   src="{{ url_for('static', filename='Img/registrar.png') }}"
                   class="img-fluid rounded-start"
@@ -121,7 +121,7 @@ endblock %} {% block body %}
                   <h5 class="card-title">Visualizar Tareas</h5>
                   <!-- <p class="card-text">Muestra lista de productos</p> -->
                   <a
-                    href="{{ url_for('listar_productos') }}"
+                    href="{{ url_for('listar_tarea') }}"
                     class="btn btn-outline-success"
                     >Ver Detalles</a
                   >

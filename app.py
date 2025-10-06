@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, Response, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
 
 # Inicializamos la aplicación Flask
@@ -44,7 +44,6 @@ def accesologin():
         return render_template("login.html")
           
  
-
 # ----------------- RUTAS -----------------
 
 @app.route('/')
@@ -104,22 +103,128 @@ def logout():
     session.clear()
     return redirect (url_for('inicio'))
 
-@app.route('/listar_productos_agregados')
-def listar_productos_agregados():
-    return render_template ("listar_productos_agregados.html")
+@app.route('/tareas_agregadas', methods=['GET', 'POST'])
+def tareas_agregadas():
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        descripcion = request.form['descripcion']
+        fecha_creacion = request.form['fecha_creacion']
+        fecha_vencimiento = request.form['fecha_vencimiento']
+        
+        try:
+            cursor = mysql.connection.cursor()
+            cursor.execute("""
+                INSERT INTO tareas (titulo, descripcion, fecha_creacion, fecha_vencimiento)
+                VALUES (%s, %s, %s, %s)
+            """, (titulo, descripcion, fecha_creacion, fecha_vencimiento))
+            mysql.connection.commit()
+            cursor.close()
+            flash('Tarea agregada exitosamente.', 'success')
+            return redirect(url_for('tareas_agregadas'))
+        except Exception as e:
+            flash(f'Error al agregar la tarea: {e}', 'danger')
+            return redirect(url_for('tareas_agregadas'))
+
+    # Si es GET, simplemente renderiza la plantilla
+    return render_template("tareas_agregadas.html")
+
    
-@app.route('/listar_producos')
-def listar_productos():
-    return render_template ("listar_productos.html")
+@app.route('/listar_tarea')
+def listar_tarea():
+ cursor = mysql.connection.cursor()
+ cursor.execute("SELECT * FROM tareas")
+ tareas = cursor.fetchall()
+ cursor.close()
+ return render_template("listar_tarea.html", tareas=tareas)
+
+
+@app.route('/editar_tareas', methods=['POST'])
+def editar_tarea():
+    if request.method == 'POST':
+        id = request.form['id']
+        titulo = request.form['titulo']
+        descripcion = request.form['descripcion']
+        fecha_vencimiento = request.form['fecha_vencimiento']
+        
+        cur = mysql.connection.cursor()
+        cur.execute("""
+            UPDATE tareas
+            SET titulo = %s,
+                descripcion = %s,
+                fecha_vencimiento = %s
+            WHERE id = %s
+        """, (titulo, descripcion, fecha_vencimiento, id))
+        mysql.connection.commit()
+        cur.close()
+        flash('Tarea actualizada correctamente')
+        return redirect(url_for('listar_tarea'))
+
+@app.route('/borrar_tareas/<string:id>')
+def borrar_tareas(id):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM tareas WHERE id = %s", (id,))
+    mysql.connection.commit()
+    cur.close()
+    flash('Tarea eliminada correctamente')
+    return redirect(url_for('listar_tarea'))
+
 
 @app.route('/listar')
 def listar():
-    return render_template ("perfil.html", usuario=session.get('usuario')) 
+   cur = mysql.connection.cursor()
+   cur.execute("SELECT * FROM usuario")
+   usuarios = cur.fetchall()
+   cur.close()
+   return render_template("perfil.html", usuarios=usuarios)
  
 @app.route('/admin')
 def admin():
     return render_template ("admin.html")
 
+@app.route('/updateUsuario', methods=['POST'])
+def updateUsuario():
+    id = request.form['id']
+    nombre = request.form['nombre']
+    email = request.form['email']
+    password = request.form['password']
+    sql="UPDATE usuario SET nombre=%s, email=%s, password=%s WHERE id=%s"
+    datos=(nombre, email, password, id)
+    
+    conexion = mysql.connection
+    cursor = conexion.cursor()
+    cursor.execute(sql, datos)
+    conexion.commit()
+    flash('Usuario actualizado correctamente')
+    return redirect(url_for('listar'))
+
+@app.route('/borrarUser/<string:id>', methods=['GET'])
+def borrarUser(id):
+    flash('Usuario eliminado correctamente', 'quetion')
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM usuario WHERE id=%s", (id,))
+    mysql.connection.commit()
+    return redirect(url_for('listar'))
+
+@app.route('/guardar_usuario', methods=['GET', 'POST'])
+def guardar_usuario():
+    if request.method == 'POST':
+        nombre = request.form.get('nombre')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        id_rol = request.form.get('id_rol', 2)  # Rol usuario por defecto
+
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO usuario (nombre, email, password, id_rol) VALUES (%s, %s, %s, %s)",
+                    (nombre, email, password, id_rol))
+        mysql.connection.commit()
+        cur.close()
+
+        return redirect(url_for('listar'))
+
+    return render_template("guardar_usuario.html")
+
+       
 # ----------------- MAIN -----------------
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
+
