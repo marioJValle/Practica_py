@@ -1,10 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_mysqldb import MySQL
-from flask import make_response, send_file
-import io
-import pandas as pd
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
 
 # Inicializamos la aplicación Flask
 app = Flask(__name__, template_folder='Templates')
@@ -227,53 +222,6 @@ def guardar_usuario():
         return redirect(url_for('listar'))
 
     return render_template("guardar_usuario.html")
-
-@app.route('/exportar_excel')
-def exportar_excel():
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT * FROM tareas")
-    tareas = cursor.fetchall()
-    cursor.close()
-
-    # Crear DataFrame
-    df = pd.DataFrame(tareas)
-    output = io.BytesIO()
-    with pd.ExcelWriter(output, engine='openpyxl') as writer:
-        df.to_excel(writer, index=False, sheet_name='tareas')
-
-    output.seek(0)
-    return send_file(output,
-                     as_attachment=True,
-                     download_name="tareas.xlsx",
-                     mimetype="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-
-# ✅ Exportar tareas a PDF
-@app.route('/exportar_pdf')
-def exportar_pdf():
-    cursor = mysql.connection.cursor()
-    cursor.execute("SELECT * FROM tareas")
-    tareas = cursor.fetchall()
-    cursor.close()
-
-    # Crear PDF
-    buffer = io.BytesIO()
-    p = canvas.Canvas(buffer, pagesize=letter)
-    p.setFont("Helvetica-Bold", 14)
-    p.drawString(200, 750, "Listado de tareas")
-
-    y = 710
-    p.setFont("Helvetica", 10)
-    for tarea in tareas:
-        linea = f"ID: {tarea['id']} | {tarea['titulo']} | decripcion: ${tarea['descripcion']} | fecha_creacion: {tarea['fecha_creacion']} | fecha_vencimiento: {tarea['fecha_vencimiento']}"
-        p.drawString(50, y, linea)
-        y -= 20
-        if y < 50:
-            p.showPage()
-            y = 750
-
-    p.save()
-    buffer.seek(0)
-    return send_file(buffer, as_attachment=True, download_name="tareas.pdf", mimetype="application/pdf")
 
        
 # ----------------- MAIN -----------------
