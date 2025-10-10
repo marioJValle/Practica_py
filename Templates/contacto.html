@@ -3,24 +3,42 @@
 {% block titulo %} CONTACTOS {% endblock %}
 
 {% block contenido %}
-<h1> Este es el Formulario de Contacto</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header">
+                    <h1 class="card-title text-center">Formulario de Contacto</h1>
+                </div>
+                <div class="card-body">
+                    {% if usuario %}
+                        <ul class="list-group list-group-flush mb-4">
+                            <li class="list-group-item"><b>Nombre:</b> {{ usuario.nombre }}</li>
+                            <li class="list-group-item"><b>Correo Electrónico:</b> {{ usuario.email }}</li>
+                            <li class="list-group-item"><b>Mensaje:</b> {{ usuario.mensaje }}</li>
+                        </ul>
+                    {% endif %}
 
-{% if usuario %}
-    <li><b>Nombre</b> {{ usuario.nombre }}</li>
-    <li><b>Correo Electrónico</b> {{ usuario.email }}</li>
-    <li><b>Mensaje</b> {{ usuario.mensaje }}</li>
-{% endif %}
-
-<form action="" method="get">
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre">
-    <br>
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email">
-    <br>
-    <label for="mensaje">Mensaje:</label>
-    <textarea id="mensaje" name="mensaje"></textarea>
-    <br>
-    <input type="submit" value="Enviar">
-</form>
+                    <form action="" method="get">
+                        <div class="mb-3">
+                            <label for="nombre" class="form-label">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label">Mensaje:</label>
+                            <textarea class="form-control" id="mensaje" name="mensaje" rows="4"></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
