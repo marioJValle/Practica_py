@@ -94,9 +94,9 @@ def Registro():
 def usuario():
     return render_template("usuario.html")
 
-@app.route('/acercade')
-def acercade():
-    return render_template("acercade.html")
+@app.route('/acercaDe')
+def acercaDe():
+    return render_template("acercaDe.html")
 
 @app.route('/logout')
 def logout():
