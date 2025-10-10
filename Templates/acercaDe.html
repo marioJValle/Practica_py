@@ -1,37 +1,35 @@
 {% extends 'base.html' %} {% block titulo %}Acerca de{% endblock %} {% block
 contenido %}
 
-<!-- Encabezado con imagen -->
-<div class="container mt-5">
-  <div class="text-center">
+<!-- Encabezado -->
+<div class="bg-light py-5">
+  <div class="container text-center">
     <img
       src="{{ url_for('static', filename='Img/img6.png') }}"
-      class="img-fluid rounded shadow-sm mb-4"
-      alt="AkiraCode Academy - Tu camino ninja en la programación"
-      style="max-height: 150px; object-fit: cover"
+      class="img-fluid rounded-circle shadow-sm mb-4"
+      alt="TaskFlow Logo"
+      style="width: 150px; height: 150px; object-fit: cover"
     />
+    <h1 class="display-4 fw-bold">Acerca de TaskFlow</h1>
+    <p class="lead text-muted mt-3">
+      TaskFlow nació de una simple idea: gestionar tus tareas diarias debería ser
+      intuitivo, fluido y productivo. En un mundo donde el tiempo es nuestro
+      recurso más valioso, queremos ayudarte a optimizarlo al máximo.
+    </p>
   </div>
-  <h2 class="text-center mb-4">ACERCA DE TaskFlow</h2>
-  <p class="text-center">
-    <strong>TaskFlow</strong> nació de una simple idea: que gestionar tus tareas
-    diarias debería ser intuitivo, fluido y, sobre todo, productivo. En un mundo
-    donde el tiempo es nuestro recurso más valioso, queremos ayudarte a
-    optimizarlo al máximo. omos una plataforma web diseñada para organizar tus
-    actividades personales, profesionales y académicas de manera eficiente. Con
-    una interfaz limpia y amigable, <strong> TaskFLow</strong> te permite
-    capturar tus ideas, planificar tu día y realizar un seguimiento de tus metas
-    con facilidad.
-  </p>
 </div>
 
 <!-- Misión, Visión, Objetivo -->
-<div class="container mt-5">
+<div class="container my-5">
   <div class="row text-center">
-    <div class="col-sm-4">
-      <div class="card h-100 shadow-sm">
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 shadow-sm border-light">
         <div class="card-body">
-          <h5 class="card-title">Misión</h5>
-          <p class="card-text">
+          <div class="mb-3">
+            <i class="bi bi-bullseye fs-1 text-primary"></i>
+          </div>
+          <h5 class="card-title fw-bold">Misión</h5>
+          <p class="card-text text-muted">
             Empoderar a personas y equipos para que alcancen su máximo potencial
             mediante herramientas de gestión de tareas que se adaptan a su flujo
             de trabajo natural, eliminando el estrés y la sobrecarga mental.
@@ -39,31 +37,33 @@ contenido %}
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
-      <div class="card h-100 shadow-sm">
+    <div class="col-lg-4 col-md-6 mb-4">
+      <div class="card h-100 shadow-sm border-light">
         <div class="card-body">
-          <h5 class="card-title">Visión</h5>
-          <p class="card-text">
-            En <strong> TaskFlow</strong> visualizamos un mundo donde la gestión
-            de tareas deja de ser una carga y se convierte en una experiencia
-            fluida e intuitiva que empodera a las personas para alcanzar sus
-            metas con claridad y confianza. Aspiramos a ser la plataforma líder
-            en productividad<strong> personal y colaborativa</strong>,
-            reconocida por su innovación constante, diseño accesible y capacidad
-            para adaptarse a las necesidades únicas de cada usuario.
+          <div class="mb-3">
+            <i class="bi bi-eye fs-1 text-primary"></i>
+          </div>
+          <h5 class="card-title fw-bold">Visión</h5>
+          <p class="card-text text-muted">
+            Visualizamos un mundo donde la gestión de tareas es una experiencia
+            fluida que empodera a las personas para alcanzar sus metas con
+            claridad y confianza, aspirando a ser la plataforma líder en
+            productividad.
           </p>
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
-      <div class="card h-100 shadow-sm">
+    <div class="col-lg-4 col-md-12 mb-4">
+      <div class="card h-100 shadow-sm border-light">
         <div class="card-body">
-          <h5 class="card-title">Objetivo</h5>
-          <p class="card-text">
-            <strong> TaskFlow</strong>es una plataforma web diseñada para
-            simplificar y optimizar la gestión de tareas personales, académicas
-            y profesionales mediante una experiencia intuitiva, flexible y
-            accesible desde cualquier. dispositivo.
+          <div class="mb-3">
+            <i class="bi bi-check-circle fs-1 text-primary"></i>
+          </div>
+          <h5 class="card-title fw-bold">Objetivo</h5>
+          <p class="card-text text-muted">
+            Simplificar y optimizar la gestión de tareas personales, académicas y
+            profesionales mediante una experiencia intuitiva, flexible y
+            accesible desde cualquier dispositivo.
           </p>
         </div>
       </div>
@@ -72,78 +72,79 @@ contenido %}
 </div>
 
 <!-- Valores -->
-<div class="container mt-5">
-  <h2 class="text-center mb-4">NUESTROS VALORES</h2>
-  <div class="row text-center">
-    <div class="col-sm-3">
-      <div class="card shadow-sm">
-        <img
-          src="{{ url_for('static', filename='Img/img7.png') }}"
-          class="card-img-top"
-          alt="Innovación"
-        />
-        <div class="card-body">
-          <h5 class="card-title">FLEXIBILIDAD ADAPTATIVA</h5>
-          <p class="card-text">
-            Reconocemos que cada persona organiza su mundo de forma única.
-            TaskFlow se adapta a tu flujo de trabajo, no al revés. Ofrecemos
-            múltiples formas de visualizar y gestionar tareas (listas, kanban,
-            calendario) para que elijas cómo quieres fluir.
-          </p>
+<div class="bg-light py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Nuestros Valores</h2>
+      <p class="lead text-muted">Los principios que guían nuestro trabajo.</p>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 shadow-sm border-light text-center">
+          <img
+            src="{{ url_for('static', filename='Img/img7.png') }}"
+            class="card-img-top"
+            alt="Flexibilidad"
+            style="height: 180px; object-fit: cover"
+          />
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Flexibilidad Adaptativa</h5>
+            <p class="card-text text-muted">
+              TaskFlow se adapta a tu flujo de trabajo, no al revés. Elige cómo
+              quieres fluir.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="card shadow-sm">
-        <img
-          src="{{ url_for('static', filename='Img/img8.jpeg') }}"
-          class="card-img-top"
-          alt="Compromiso"
-        />
-        <div class="card-body">
-          <h5 class="card-title">SIMPLICIDAD CON PROPÓSITO</h5>
-          <p class="card-text">
-            Creemos que la productividad no debe ser complicada. Diseñamos cada
-            característica con un enfoque en la usabilidad y la intuición,
-            eliminando el ruido y las funcionalidades superfluas para ofrecer
-            una experiencia limpia y centrada en lo esencial.
-          </p>
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 shadow-sm border-light text-center">
+          <img
+            src="{{ url_for('static', filename='Img/img8.jpeg') }}"
+            class="card-img-top"
+            alt="Simplicidad"
+            style="height: 180px; object-fit: cover"
+          />
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Simplicidad con Propósito</h5>
+            <p class="card-text text-muted">
+              Diseñamos una experiencia limpia y centrada en lo esencial, sin
+              complicaciones.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="card shadow-sm">
-        <img
-          src="{{ url_for('static', filename='accesibilidad.jpg') }}"
-          class="card-img-top"
-          alt="Accesibilidad"
-        />
-        <div class="card-body">
-          <h5 class="card-title">CRECIMIENTO CONTINUO</h5>
-          <p class="card-text">
-            Abrazamos la mejora constante, tanto para nuestra plataforma como
-            para nuestros usuarios. Aprendemos de cada interacción, feedback y
-            error. No nos conformamos; siempre aspiramos a ser mejor versión de
-            nosotros mismos.
-          </p>
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 shadow-sm border-light text-center">
+          <img
+            src="{{ url_for('static', filename='accesibilidad.jpg') }}"
+            class="card-img-top"
+            alt="Crecimiento"
+            style="height: 180px; object-fit: cover"
+          />
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Crecimiento Continuo</h5>
+            <p class="card-text text-muted">
+              Abrazamos la mejora constante, aprendiendo de cada interacción para
+              ser mejores.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="card shadow-sm">
-        <img
-          src="{{ url_for('static', filename='Img/img9.jpg') }}"
-          class="card-img-top"
-          alt="Eficiencia"
-        />
-        <div class="card-body">
-          <h5 class="card-title">TRANSPARENCIA Y CONFIANZA</h5>
-          <p class="card-text">
-            Ganamos y mantenemos tu confianza through absolute transparency.
-            Somos claros en cómo usamos tus datos (tu información es tuya), en
-            nuestros modelos de negocio y en nuestra comunicación. La privacidad
-            y seguridad no son opciones; son nuestra base.
-          </p>
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="card h-100 shadow-sm border-light text-center">
+          <img
+            src="{{ url_for('static', filename='Img/img9.jpg') }}"
+            class="card-img-top"
+            alt="Confianza"
+            style="height: 180px; object-fit: cover"
+          />
+          <div class="card-body">
+            <h5 class="card-title fw-bold">Transparencia y Confianza</h5>
+            <p class="card-text text-muted">
+              La privacidad y seguridad de tus datos son nuestra base. Somos
+              transparentes en todo.
+            </p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,81 +1,88 @@
- {% extends 'base.html' %}
+{% extends 'base.html' %}
 
 {% block titulo %}Contactos{% endblock %}
 
 {% block contenido %}
 
-<!-- Banner -->
-<div class="container mt-5">
-  <div class="text-center">
+<!-- Banner Section -->
+<div class="bg-light py-5">
+  <div class="container text-center">
     <img src="{{ url_for('static', filename='Img/contacto.png') }}" 
-         class="img-fluid rounded shadow-sm mb-4" 
-         alt="AkiraCode Academy - Contacto" 
-         style="max-height: 80px; object-fit: cover;">
+         class="img-fluid rounded-circle shadow-sm mb-4" 
+         alt="Contacto TaskFlow" 
+         style="width: 100px; height: 100px; object-fit: cover;">
+    <h1 class="display-5 fw-bold">Ponte en Contacto con Nosotros</h1>
+    <p class="lead text-muted mt-3">
+      En <strong>TaskFlow</strong>, tu opinión es importante. Si tienes dudas, sugerencias o simplemente quieres saludarnos, no dudes en escribirnos.
+    </p>
   </div>
-  <h2 class="text-center mb-3">Ponte en Contacto con Nosotros</h2>
-  <p class="text-center text-muted">
-    En <strong>TaskFLow</strong> estamos comprometidos contigo.  
-    Si tienes dudas, sugerencias o simplemente quieres saludarnos, no dudes en escribirnos.  
-    Nuestro equipo estará encantado de responderte con la rapidez y seriedad que mereces.
-  </p>
 </div>
 
-<!-- Contacto + Formulario -->
-<div class="container mt-5 mb-5">
-  <div class="row g-4 align-items-stretch">
+<!-- Contacto + Formulario Section -->
+<div class="container my-5">
+  <div class="row g-lg-5 align-items-center">
 
     <!-- Información de contacto -->
-    <div class="col-md-5">
-      <div class="card h-100 shadow-lg border-0 rounded-3 bg-light">
-        <div class="card-body p-4">
-          <h4 class="card-title mb-4">Información de Contacto</h4>
-          <p class="text-muted">Siempre puedes encontrarnos en los siguientes canales:</p>
-          <ul class="list-unstyled">
-            <li class="mb-3">
-              <i class="bi bi-envelope-fill text-primary"></i>
-              <strong> Email:</strong> contactotaskflow@gmail.com
-            </li>
-            <li class="mb-3">
-              <i class="bi bi-telephone-fill text-primary"></i>
-              <strong> Teléfono:</strong> +34 123 456 789
-            </li>
-            <li class="mb-3">
-              <i class="bi bi-geo-alt-fill text-primary"></i>
-              <strong> Ubicación:</strong> Ciudad Tecnológica, España
-            </li>
-          </ul>
-          <p class="small text-muted">Horario de atención: Lunes a Viernes, 9:00 - 18:00</p>
-        </div>
+    <div class="col-lg-5">
+      <div class="p-4 rounded-3 h-100">
+        <h4 class="fw-bold mb-4">Información de Contacto</h4>
+        <p class="text-muted">Siempre puedes encontrarnos en los siguientes canales:</p>
+        <ul class="list-unstyled">
+          <li class="d-flex align-items-center mb-3">
+            <i class="bi bi-envelope-fill text-primary fs-4 me-3"></i>
+            <div>
+              <strong>Email:</strong><br>
+              <a href="mailto:contactotaskflow@gmail.com" class="text-decoration-none text-dark">contactotaskflow@gmail.com</a>
+            </div>
+          </li>
+          <li class="d-flex align-items-center mb-3">
+            <i class="bi bi-telephone-fill text-primary fs-4 me-3"></i>
+            <div>
+              <strong>Teléfono:</strong><br>
+              <span class="text-dark">(+505) 8888-8888</span>
+            </div>
+          </li>
+          <li class="d-flex align-items-center mb-3">
+            <i class="bi bi-geo-alt-fill text-primary fs-4 me-3"></i>
+            <div>
+              <strong>Ubicación:</strong><br>
+              <span class="text-dark">Managua, Nicaragua</span>
+            </div>
+          </li>
+        </ul>
+        <hr>
+        <p class="small text-muted mt-3">Horario de atención: Lunes a Viernes, 9:00 - 18:00</p>
       </div>
     </div>
 
     <!-- Formulario -->
-    <div class="col-md-7">
-      <div class="card h-100 shadow-lg border-0 rounded-3">
-        <div class="card-body p-4">
-          <h4 class="card-title text-center mb-4">Envíanos un mensaje</h4>
+    <div class="col-lg-7">
+      <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-body p-4 p-lg-5">
+          <h4 class="card-title text-center fw-bold mb-4">Envíanos un Mensaje</h4>
           <form id="contactForm" action="" method="post" novalidate>
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombre" name="nombre" 
-                     placeholder="Tu nombre completo" required>
-              <div class="invalid-feedback">Por favor ingresa tu nombre.</div>
+            
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+              <label for="nombre">Nombre Completo</label>
+              <div class="invalid-feedback">Por favor, ingresa tu nombre.</div>
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Correo Electrónico</label>
-              <input type="email" class="form-control" id="email" name="email" 
-                     placeholder="ejemplo@correo.com" required>
-              <div class="invalid-feedback">Por favor ingresa un correo válido.</div>
+
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="email" name="email" placeholder="ejemplo@correo.com" required>
+              <label for="email">Correo Electrónico</label>
+              <div class="invalid-feedback">Por favor, ingresa un correo válido.</div>
             </div>
-            <div class="mb-3">
-              <label for="mensaje" class="form-label">Mensaje</label>
-              <textarea class="form-control" id="mensaje" name="mensaje" rows="4" 
-                        placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+            <div class="form-floating mb-4">
+              <textarea class="form-control" id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..." style="height: 150px" required></textarea>
+              <label for="mensaje">Mensaje</label>
               <div class="invalid-feedback">El mensaje no puede estar vacío.</div>
             </div>
+
             <div class="d-grid">
               <button type="submit" class="btn btn-primary btn-lg">
-                <i class="bi bi-send-fill"></i> Enviar Mensaje
+                <i class="bi bi-send-fill me-2"></i> Enviar Mensaje
               </button>
             </div>
           </form>
@@ -86,25 +93,24 @@
   </div>
 </div>
 
-<!-- Toast flotante -->
+<!-- Toast flotante para notificaciones -->
 <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
   <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
-      <div class="toast-body">
-        ✅ ¡Mensaje enviado correctamente! Gracias por contactarnos.
+      <div class="toast-body fw-bold">
+        ¡Mensaje enviado correctamente!
       </div>
       <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
     </div>
   </div>
 </div>
 
-<!-- Bootstrap Icons -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+{% endblock %}
 
-<!-- JS: Validación + Toast -->
+{% block scripts %}
 <script>
   (function () {
-    'use strict'
+    'use strict';
     const form = document.getElementById('contactForm');
     const toastEl = document.getElementById('successToast');
     const toast = new bootstrap.Toast(toastEl);
@@ -114,15 +120,19 @@
       event.stopPropagation();
 
       if (form.checkValidity()) {
+        // Aquí iría la lógica para enviar el formulario (ej. fetch)
+        console.log('Formulario válido, enviando...');
+
         // Mostrar toast de éxito
         toast.show();
+        
+        // Limpiar el formulario y la validación
         form.reset();
         form.classList.remove('was-validated');
       } else {
         form.classList.add('was-validated');
       }
-    }, false)
-  })()
+    }, false);
+  })();
 </script>
-
 {% endblock %}

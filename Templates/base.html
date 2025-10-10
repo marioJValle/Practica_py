@@ -49,7 +49,7 @@
 
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0d2d62;">
       <div class="container-fluid">
         <a class="navbar-brand fw-bold" href="{{ url_for('inicio') }}"
           >SISTEMA</a
@@ -70,27 +70,29 @@
           <ul class="navbar-nav mx-auto text-center">
             <!-- 🔹 centrado en desktop, stack en mobile -->
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('inicio') }}">Inicio</a>
+              <a class="nav-link text-white" href="{{ url_for('inicio') }}">Inicio</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('contacto') }}"></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('contactopost') }}"
+              <a class="nav-link text-white" href="{{ url_for('contactopost') }}"
                 >Contactos</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ url_for('acercaDe') }}">Acerca de</a>
+              <a class="nav-link text-white" href="{{ url_for('acercaDe') }}">Acerca de</a>
             </li>
           </ul>
 
           <!-- Botón Login alineado a la derecha -->
+          {% if request.endpoint != 'login' and request.endpoint != 'Registro' %}
           <div
             class="d-flex justify-content-center justify-content-lg-end mt-2 mt-lg-0"
           >
-            <a class="btn btn-light" href="{{ url_for('login') }}">Login</a>
+            <a class="btn fw-bold" style="background-color: #ffce85; color: #0d2d62;" href="{{ url_for('login') }}">Login</a>
           </div>
+          {% endif %}
         </div>
       </div>
     </nav>
@@ -99,7 +101,7 @@
     <main>{% block contenido %}{% endblock %}</main>
 
     <!-- Footer -->
-    <footer class="mt-5 bg-dark text-white pt-5 pb-4">
+    <footer class="mt-5 text-white pt-5 pb-4" style="background-color: #0d2d62;">
       <div class="container text-center text-md-start">
         <div class="row">
           <!-- Columna 1 -->
