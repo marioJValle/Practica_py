@@ -10,7 +10,7 @@ mysql=MySQL() #inicializa la conexion a la DB
 
 # conexion a la DB
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_PORT'] = 3306
+app.config['MYSQL_PORT'] = 3307
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'ventas'
@@ -125,8 +125,12 @@ def tareas_agregadas():
             flash(f'Error al agregar la tarea: {e}', 'danger')
             return redirect(url_for('tareas_agregadas'))
 
-    # Si es GET, simplemente renderiza la plantilla
-    return render_template("tareas_agregadas.html")
+    # Si es GET, obtenemos las tareas y renderizamos la plantilla
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * FROM tareas")
+    tareas = cursor.fetchall()
+    cursor.close()
+    return render_template("tareas_agregadas.html", tareas=tareas)
 
    
 @app.route('/listar_tarea')
@@ -222,6 +226,7 @@ def guardar_usuario():
         return redirect(url_for('listar'))
 
     return render_template("guardar_usuario.html")
+
 
        
 # ----------------- MAIN -----------------

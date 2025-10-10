@@ -3,41 +3,56 @@
 {% block title %}Agregar Tarea{% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-    <h2 class="mb-4 text-center">Agregar Nueva Tarea</h2>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header text-white" style="background: linear-gradient(220deg,#355e3b,#7a9f7a);">
+                    <h3 class="text-center mb-0">Agregar Nueva Tarea</h3>
+                </div>
+                <div class="card-body">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
-    <form action="{{ url_for('tareas_agregadas') }}" method="POST">
-        <div class="form-group mb-3">
-            <label for="titulo">Nombre de la tarea a agregar</label>
-            <input type="text" class="form-control" id="titulo" name="titulo" required>
+                    <form action="{{ url_for('tareas_agregadas') }}" method="POST">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Nombre de la tarea" required>
+                            <label for="titulo">Nombre de la tarea</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" style="height: 100px" required></textarea>
+                            <label for="descripcion">Descripción</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="fecha_creacion" name="fecha_creacion" required>
+                                    <label for="fecha_creacion">Fecha de Creación</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" required>
+                                    <label for="fecha_vencimiento">Fecha de Vencimiento</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a href="{{ url_for('listar_tarea') }}" class="btn btn-secondary me-md-2">Cancelar</a>
+                            <button type="submit" class="btn btn-primary">Agregar Tarea</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="form-group mb-3">
-            <label for="descripcion">Descripcion</label>
-            <input type="text" step="0.01" class="form-control" id="descripcion" name="descripcion" required>
-        </div>
-
-        <div class="form-group mb-3">
-            <label for="fecha_creacion">Fecha de Creacion</label>
-            <input type="date" class="form-control" id="fecha_creacion" name="fecha_creacion" required>
-        </div>
-
-         <div class="form-group mb-3">
-            <label for="fecha_vencimiento">Fecha de Vencimiento</label>
-            <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" required>
-        </div>
-
-        <div class="d-flex justify-content-between mt-4">
-            <button type="submit" class="btn btn-primary">Agregar Tarea</button>
-            <a href="{{ url_for('tareas_agregadas') }}" class="btn btn-secondary">Cancelar</a>
-        </div>
-    </form>
+    </div>
 </div>
 {% endblock %}

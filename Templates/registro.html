@@ -1,168 +1,88 @@
-{% extends 'base.html' %} {% block titulo %} REGISTRO {% endblock %} {% block
-contenido %}
-<div
-  class="container-fluid vh-100"
-  style="background: linear-gradient(135deg, #d8d8d8, #7a7a7a)"
->
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-xl-10">
-        <div
-          class="card shadow-lg"
-          style="border-radius: 1rem; background-color: #27d8d314"
-        >
-          <div class="row g-0">
-            <!-- Panel izquierdo -->
-            <div class="col-md-6 col-lg-5 d-none d-md-flex h-100">
-              <div
-                class="card-body d-flex flex-column justify-content-center align-items-center p-4 p-md-5 text-white"
-                style="
-                  background: linear-gradient(135deg, #7cc5a9, #bbbdac);
-                  border-radius: 1rem 0 0 1rem;
-                  height: 100%;
-                  width: 100%;
-                "
-              >
-                <!-- Imagen superior -->
-                <div class="mb-4">
-                  <img
-                    src="{{ url_for('static', filename='Img/usuario.png') }}"
-                    alt="Imagen Panel"
-                    style="
-                      width: 300px;
-                      height: 300px;
-                      object-fit: cover;
-                      border-radius: 0;
-                    "
-                  />
-                </div>
+{% extends 'base.html' %}
+{% block titulo %} Registrarse {% endblock %}
 
-                <!-- Título -->
-                <h2 class="fw-bold mb-4 text-center">¡Bienvenido!</h2>
-                <p class="mb-5 text-center">Ingresar Informacion de Registro</p>
-
-                <!-- Botón Iniciar Sesión -->
-                <a href="#" class="btn btn-lg btn-login"> Iniciar Sesión </a>
-              </div>
-            </div>
-
-            <!-- Panel derecho -->
-            <div class="col-md-6 col-lg-7 d-flex align-items-center">
-              <div class="card-body p-4 p-lg-5 text-dark">
-                <h2 class="fw-bold mb-4 text-center">Bienvenidos</h2>
-
-                <!-- Botón de Google -->
-                <div class="d-grid mb-4">
-                  <button
-                    class="btn btn-lg d-flex align-items-center justify-content-center btn-google"
-                    type="button"
-                  >
-                    <img
-                      src="{{ url_for('static', filename='Img/googleicon.png') }}"
-                      alt="Google"
-                      style="width: 20px; height: 20px; margin-right: 10px"
-                    />
-                    Registrarse con Google
-                  </button>
-                </div>
-
-                <!-- Separador -->
-                <div class="d-flex justify-content-center my-4">
-                  <p class="fw-bold mb-0 text-center text-muted">
-                    o Usar tu email para registrarte
-                  </p>
-                </div>
-
-                <!-- Formulario -->
-                <form action="{{ url_for('Registro') }}" method="POST">
-                  <div class="form-outline mb-4">
-                    <input
-                      type="text"
-                      name="nombre"
-                      class="form-control form-control-lg"
-                      placeholder="Nombre completo"
-                    />
-                  </div>
-                  <div class="form-outline mb-4">
-                    <input
-                      type="email"
-                      name="email"
-                      class="form-control form-control-lg"
-                      placeholder="Correo electrónico"
-                    />
-                  </div>
-                  <div class="form-outline mb-4">
-                    <input
-                      type="password"
-                      name="password"
-                      class="form-control form-control-lg"
-                      placeholder="Contraseña"
-                    />
-                  </div>
-
-                  <!-- Botón Registrarse -->
-                  <div class="d-grid">
-                    <button class="btn btn-lg btn-register" type="submit">
-                      Registrarse
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
+{% block contenido %}
 <style>
-  /* Botón Iniciar Sesión */
-  .btn-login {
-    background: linear-gradient(90deg, #f2aacb, #16a2c0);
-    color: white !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.1s ease-in-out;
-  }
-  .btn-login:active {
-    transform: scale(0.95);
-  }
-
-  /* Botón Google */
-  .btn-google {
-    background-color: #ffffff !important;
-    color: #000000 !important;
-    border: none !important;
-    transition: transform 0.1s ease-in-out;
-  }
-  .btn-google:active {
-    transform: scale(0.95);
-  }
-
-  /* Botón Registrarse */
-  .btn-register {
-    background: linear-gradient(90deg, #8c11fa, #009ca0);
-    color: white !important;
-    border: none !important;
-    transition: transform 0.1s ease-in-out;
-  }
-  .btn-register:active {
-    transform: scale(0.95);
-  }
-
-  /* Ajustes para los inputs */
-  .form-control {
-    border-radius: 10px;
-    border: 1px solid #ced4da;
-    padding: 12px 15px;
-  }
-
-  .form-control:focus {
-    border-color: #5078fa;
-    box-shadow: 0 0 0 0.2rem rgba(80, 120, 250, 0.25);
-  }
+    body {
+        background: #f0f2f5;
+    }
+    .card {
+        border: none;
+        border-radius: 1rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .left-panel {
+        background: linear-gradient(135deg, #6610f2, #6f42c1);
+        border-radius: 1rem 0 0 1rem;
+        color: white;
+    }
+    .btn-login {
+        background-color: #fff;
+        color: #6610f2;
+        font-weight: bold;
+    }
+    .btn-login:hover {
+        background-color: #e9ecef;
+        color: #5a0cd2;
+    }
+    .btn-google {
+        background-color: #fff;
+        color: #495057;
+        border: 1px solid #ced4da;
+    }
+    .btn-google:hover {
+        background-color: #f8f9fa;
+    }
 </style>
 
+<div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+    <div class="col-xl-10">
+        <div class="card">
+            <div class="row g-0">
+                <!-- Left Panel -->
+                <div class="col-lg-5 d-none d-lg-flex flex-column justify-content-center align-items-center left-panel p-5">
+                    <img src="{{ url_for('static', filename='Img/registrar.png') }}" alt="Register Image" class="img-fluid mb-4" style="max-width: 200px;">
+                    <h2 class="fw-bold text-center mb-3">¡Únete a Nosotros!</h2>
+                    <p class="text-center mb-4">Si ya tienes una cuenta, inicia sesión aquí.</p>
+                    <a href="{{ url_for('login') }}" class="btn btn-login btn-lg">Iniciar Sesión</a>
+                </div>
+
+                <!-- Right Panel -->
+                <div class="col-lg-7 d-flex align-items-center">
+                    <div class="card-body p-5">
+                        <h1 class="fw-bold mb-4 text-center">Crear una Cuenta</h1>
+
+                        <form action="{{ url_for('Registro') }}" method="POST">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre Completo" required>
+                                <label for="nombre">Nombre Completo</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Correo Electrónico" required>
+                                <label for="email">Correo Electrónico</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña" required>
+                                <label for="password">Contraseña</label>
+                            </div>
+                            <div class="d-grid mb-3">
+                                <button class="btn btn-primary btn-lg" type="submit">Registrarse</button>
+                            </div>
+                        </form>
+
+                        <div class="text-center my-3">
+                            <span class="text-muted">O</span>
+                        </div>
+
+                        <div class="d-grid">
+                            <a href="#" class="btn btn-google btn-lg">
+                                <img src="{{ url_for('static', filename='Img/googleicon.png') }}" alt="Google" width="20" class="me-2"> Registrarse con Google
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
