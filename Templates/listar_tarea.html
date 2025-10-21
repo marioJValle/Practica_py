@@ -37,6 +37,7 @@
                                 <th scope="col">Descripción</th>
                                 <th scope="col">Fecha de Creación</th>
                                 <th scope="col">Fecha de Vencimiento</th>
+                                <th scope="col">Estado</th>
                                 <th scope="col">Acciones</th>
                             </tr>
                         </thead>
@@ -48,6 +49,13 @@
                                     <td>{{ tarea.descripcion }}</td>
                                     <td>{{ tarea.fecha_creacion }}</td>
                                     <td>{{ tarea.fecha_vencimiento }}</td>
+                                    <td>
+                                        <select class="form-select form-select-sm" onchange="actualizarEstadoTarea({{ tarea.id }}, this.value)">
+                                            <option value="Pendiente" {% if tarea.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                                            <option value="En Progreso" {% if tarea.estado == 'En Progreso' %}selected{% endif %}>En Progreso</option>
+                                            <option value="Completada" {% if tarea.estado == 'Completada' %}selected{% endif %}>Completada</option>
+                                        </select>
+                                    </td>
                                     <td>
                                         <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editTaskModal{{ tarea.id }}">
                                             <i class="bi bi-pencil-square me-1"></i> Editar
@@ -121,6 +129,42 @@
             }
         });
     }
+
+    function actualizarEstadoTarea(id_tarea, nuevo_estado) {
+        $.ajax({
+            url: '/actualizar_estado_tarea/' + id_tarea,
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ estado: nuevo_estado }),
+            success: function(response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Estado actualizado',
+                        text: response.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: response.message,
+                        showConfirmButton: true
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error de conexión',
+                    text: 'No se pudo conectar con el servidor para actualizar el estado.',
+                    showConfirmButton: true
+                });
+                console.error("Error AJAX:", status, error);
+            }
+        });
+    }
 </script>
 {% endblock %}
 
@@ -135,7 +179,7 @@
                     text: '<i class="bi bi-clipboard-check-fill"></i> Copiar',
                     className: 'btn btn-secondary',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4]
+                        columns: [0, 1, 2, 3, 4, 5] // Incluir la nueva columna de estado
                     }
                 },
                 {
@@ -143,7 +187,7 @@
                     text: '<i class="bi bi-file-earmark-excel-fill"></i> Excel',
                     className: 'btn btn-success',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4]
+                        columns: [0, 1, 2, 3, 4, 5] // Incluir la nueva columna de estado
                     }
                 },
                 {
@@ -151,7 +195,7 @@
                     text: '<i class="bi bi-file-earmark-pdf-fill"></i> PDF',
                     className: 'btn btn-danger',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4]
+                        columns: [0, 1, 2, 3, 4, 5] // Incluir la nueva columna de estado
                     }
                 }
             ],

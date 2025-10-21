@@ -31,8 +31,14 @@
     />
 
     <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.bootstrap5.min.css"
+    />
 
     <style>
       a.text-white:hover {
@@ -49,7 +55,10 @@
 
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0d2d62;">
+    <nav
+      class="navbar navbar-expand-lg navbar-dark"
+      style="background-color: #0d2d62"
+    >
       <div class="container-fluid">
         <a class="navbar-brand fw-bold" href="{{ url_for('inicio') }}"
           >SISTEMA</a
@@ -70,28 +79,52 @@
           <ul class="navbar-nav mx-auto text-center">
             <!-- 🔹 centrado en desktop, stack en mobile -->
             <li class="nav-item">
-              <a class="nav-link text-white" href="{{ url_for('inicio') }}">Inicio</a>
+              <a class="nav-link text-white" href="{{ url_for('inicio') }}"
+                >Inicio</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('contacto') }}"></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="{{ url_for('contactopost') }}"
+              <a
+                class="nav-link text-white"
+                href="{{ url_for('contactopost') }}"
                 >Contactos</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="{{ url_for('acercaDe') }}">Acerca de</a>
+              <a class="nav-link text-white" href="{{ url_for('acercaDe') }}"
+                >Acerca de</a
+              >
             </li>
           </ul>
 
           <!-- Botón Login alineado a la derecha -->
-          {% if request.endpoint != 'login' and request.endpoint != 'Registro' %}
-          <div
-            class="d-flex justify-content-center justify-content-lg-end mt-2 mt-lg-0"
-          >
-            <a class="btn me-2 fw-bold" style="background-color: #20c997; color: white;" href="{{ url_for('Registro') }}">Registrarse</a>
-            <a class="btn fw-bold" style="background-color: #ffce85; color: #0d2d62;" href="{{ url_for('login') }}">Login</a>
+          {% if 'usuario' in session %}
+          <div class="d-flex justify-content-center justify-content-lg-end mt-2 mt-lg-0">
+            <span class="navbar-text me-3 text-white">Bienvenido, {{ session['usuario'] }}</span>
+            {% if session.get('rol') == 1 %}
+            <a class="btn me-2 fw-bold" style="background-color: #20c997; color: white" href="{{ url_for('admin') }}">Panel Admin</a>
+            {% else %}
+            <a class="btn me-2 fw-bold" style="background-color: #20c997; color: white" href="{{ url_for('panel_usuario') }}">Mi Panel</a>
+            {% endif %}
+            <a class="btn fw-bold" style="background-color: #dc3545; color: white" href="{{ url_for('logout') }}">Cerrar Sesión</a>
+          </div>
+          {% else %}
+          <div class="d-flex justify-content-center justify-content-lg-end mt-2 mt-lg-0">
+            <a
+              class="btn me-2 fw-bold"
+              style="background-color: #20c997; color: white"
+              href="{{ url_for('Registro') }}"
+              >Registrarse</a
+            >
+            <a
+              class="btn fw-bold"
+              style="background-color: #ffce85; color: #0d2d62"
+              href="{{ url_for('login') }}"
+              >Login</a
+            >
           </div>
           {% endif %}
         </div>
@@ -102,7 +135,7 @@
     <main>{% block contenido %}{% endblock %}</main>
 
     <!-- Footer -->
-    <footer class="mt-5 text-white pt-5 pb-4" style="background-color: #0d2d62;">
+    <footer class="mt-5 text-white pt-5 pb-4" style="background-color: #0d2d62">
       <div class="container text-center text-md-start">
         <div class="row">
           <!-- Columna 1 -->

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -10,11 +10,11 @@ app.secret_key = 'appsecretkey' #clave secreta para la sesion
 mysql=MySQL() #inicializa la conexion a la DB
 
 # conexion a la DB
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_PORT'] = 3307
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'ventas'
+app.config['MYSQL_HOST'] = 'bfpkhtu6hrcqo4x8mwkj-mysql.services.clever-cloud.com'
+app.config['MYSQL_PORT'] = 3306
+app.config['MYSQL_USER'] = 'up1m5qhdh34bkteh'
+app.config['MYSQL_PASSWORD'] = 'rvJ9lIwGD0suD3TdPTC4'
+app.config['MYSQL_DB'] = 'bfpkhtu6hrcqo4x8mwkj'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql.init_app(app) #inicializa la conexion a la DB
@@ -36,13 +36,26 @@ def accesologin():
             
             # Redirige según el rol del usuario
             if user['id_rol'] == 1:
-                return render_template("admin.html" , usuario=user['email'])  # Página de administrador
+                return redirect(url_for('admin'))  # Redirige a la página de administrador
             else:
-                return render_template("index.html" , usuario=user['email'])
-            
+                return redirect(url_for('panel_usuario')) # Redirige al panel de usuario normal
         else:
             flash ('Usuario y contraseña son incorrectos', 'danger')
         return render_template("login.html")
+
+@app.route('/panel_usuario')
+def panel_usuario():
+    if 'usuario' in session:
+        # Asegúrate de que el usuario no sea un administrador (id_rol = 1)
+        if session.get('rol') != 1:
+            return render_template("panel_usuario.html", usuario=session['usuario'])
+        else:
+            flash('Acceso denegado. Eres un administrador.', 'warning')
+            return redirect(url_for('admin')) # Si es admin, redirige al panel de admin
+    else:
+        flash('Debes iniciar sesión para acceder a esta página.', 'info')
+        return redirect(url_for('login'))
+
           
  
 # ----------------- RUTAS -----------------
@@ -137,7 +150,7 @@ def tareas_agregadas():
 @app.route('/listar_tarea')
 def listar_tarea():
  cursor = mysql.connection.cursor()
- cursor.execute("SELECT * FROM tareas")
+ cursor.execute("SELECT id, titulo, descripcion, fecha_creacion, fecha_vencimiento, estado FROM tareas")
  tareas = cursor.fetchall()
  cursor.close()
  return render_template("listar_tarea.html", tareas=tareas)
@@ -204,11 +217,27 @@ def updateUsuario():
 
 @app.route('/borrarUser/<string:id>', methods=['GET'])
 def borrarUser(id):
-    flash('Usuario eliminado correctamente', 'quetion')
+    flash('Usuario eliminado correctamente', 'success')
     cur = mysql.connection.cursor()
     cur.execute("DELETE FROM usuario WHERE id=%s", (id,))
     mysql.connection.commit()
     return redirect(url_for('listar'))
+
+@app.route('/actualizar_estado_tarea/<int:id_tarea>', methods=['POST'])
+def actualizar_estado_tarea(id_tarea):
+    nuevo_estado = request.json.get('estado')
+    if not nuevo_estado:
+        return jsonify({'success': False, 'message': 'Estado no proporcionado'}), 400
+
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE tareas SET estado = %s WHERE id = %s", (nuevo_estado, id_tarea))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify({'success': True, 'message': 'Estado de tarea actualizado correctamente'})
+    except Exception as e:
+        print(f"Error al actualizar estado de tarea: {e}")
+        return jsonify({'success': False, 'message': f'Error al actualizar estado: {e}'}), 500
 
 @app.route('/guardar_usuario', methods=['GET', 'POST'])
 def guardar_usuario():
@@ -233,4 +262,3 @@ def guardar_usuario():
 # ----------------- MAIN -----------------
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
-
