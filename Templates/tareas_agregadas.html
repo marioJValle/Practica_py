@@ -24,30 +24,54 @@
 
                     <form action="{{ url_for('tareas_agregadas') }}" method="POST">
                         <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Nombre de la tarea" required>
+                            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Nombre de la tarea" 
+                            data-bs-toggle="tooltip"
+                             data-bs-placement="bottom"
+                            title="Ejem. Lavar ropa"
+                            required>
                             <label for="titulo">Nombre de la tarea</label>
                         </div>
                         <div class="form-floating mb-3">
-                            <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" style="height: 100px" required></textarea>
+                            <textarea class="form-control" id="descripcion" name="descripcion" placeholder="Descripción" style="height: 100px"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title="Ingresa una descripcion"
+                            required></textarea>
                             <label for="descripcion">Descripción</label>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="fecha_creacion" name="fecha_creacion" required>
+                                    <input type="date" class="form-control" id="fecha_creacion" name="fecha_creacion"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom"
+                                    title="Ingresa la fecha de creacion"
+                                    required>
                                     <label for="fecha_creacion">Fecha de Creación</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-floating mb-3">
-                                    <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" required>
+                                    <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento"
+                                    data-bs-toggle="tooltip"
+                                    data-bs-placement="bottom"
+                                    title="Ingresa la fecha de vencimiento"
+                                    required>
                                     <label for="fecha_vencimiento">Fecha de Vencimiento</label>
                                 </div>
                             </div>
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                            <a href="{{ url_for('listar_tarea') }}" class="btn btn-secondary me-md-2">Cancelar</a>
-                            <button type="submit" class="btn btn-primary">Agregar Tarea</button>
+                            <a href="{{ url_for('listar_tarea') }}" class="btn btn-secondary me-md-2"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title="Cancelar"
+                            >Cancelar</a>
+                            <button type="submit" class="btn btn-primary"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            title="Agregar tarea"
+                            >Agregar Tarea</button>
                         </div>
                     </form>
                 </div>

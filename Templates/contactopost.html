@@ -63,25 +63,41 @@
           <form id="contactForm" action="" method="post" novalidate>
             
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre completo" required>
+              <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre completo" required
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Ingresa tu nombre completo"
+              >
               <label for="nombre">Nombre Completo</label>
               <div class="invalid-feedback">Por favor, ingresa tu nombre.</div>
             </div>
 
             <div class="form-floating mb-3">
-              <input type="email" class="form-control" id="email" name="email" placeholder="ejemplo@correo.com" required>
+              <input type="email" class="form-control" id="email" name="email" placeholder="ejemplo@correo.com" required
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Ingresa tu correo electronico"
+              >
               <label for="email">Correo Electrónico</label>
               <div class="invalid-feedback">Por favor, ingresa un correo válido.</div>
             </div>
 
             <div class="form-floating mb-4">
-              <textarea class="form-control" id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..." style="height: 150px" required></textarea>
+              <textarea class="form-control" id="mensaje" name="mensaje" placeholder="Escribe tu mensaje aquí..." style="height: 150px" required
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Ingresa tu mensaje"
+              ></textarea>
               <label for="mensaje">Mensaje</label>
               <div class="invalid-feedback">El mensaje no puede estar vacío.</div>
             </div>
 
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary btn-lg">
+              <button type="submit" class="btn btn-primary btn-lg"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Enviar mensaje"
+              >
                 <i class="bi bi-send-fill me-2"></i> Enviar Mensaje
               </button>
             </div>

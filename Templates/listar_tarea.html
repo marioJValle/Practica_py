@@ -2,7 +2,8 @@
 {% block title %}Lista de Tareas{% endblock %}
 
 {% block body %}
-<div class="container-fluid p-4">
+<div class="container p-4">
+    <h2 class="text-center mb-4">Gestión de Tareas</h2>
     <!-- SweetAlert2 Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -22,7 +23,11 @@
     <div class="card shadow-lg">
         <div class="card-header d-flex justify-content-between align-items-center bg-light">
             <h2 class="mb-0">Lista de Tareas</h2>
-            <a href="{{ url_for('tareas_agregadas') }}" class="btn btn-primary">
+            <a href="{{ url_for('tareas_agregadas') }}" class="btn btn-primary"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="Agregar una nueva tarea"
+            >
                 <i class="bi bi-plus-circle-fill me-2"></i>Agregar Tarea
             </a>
         </div>
@@ -50,58 +55,73 @@
                                     <td>{{ tarea.fecha_creacion }}</td>
                                     <td>{{ tarea.fecha_vencimiento }}</td>
                                     <td>
-                                        <select class="form-select form-select-sm" onchange="actualizarEstadoTarea({{ tarea.id }}, this.value)">
+                                       <select class="form-select form-select-sm" onchange="actualizarEstadoTarea({{tarea.id}}, this.value)">
                                             <option value="Pendiente" {% if tarea.estado == 'Pendiente' %}selected{% endif %}>Pendiente</option>
                                             <option value="En Progreso" {% if tarea.estado == 'En Progreso' %}selected{% endif %}>En Progreso</option>
                                             <option value="Completada" {% if tarea.estado == 'Completada' %}selected{% endif %}>Completada</option>
                                         </select>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editTaskModal{{ tarea.id }}">
+                                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editTaskModal{{ tarea.id }}"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="bottom"
+                                        title="Editar tarea"
+                                        >
                                             <i class="bi bi-pencil-square me-1"></i> Editar
                                         </button>
-                                        <a href="javascript:void(0);" onclick="confirmarEliminacion('/borrar_tareas/{{ tarea.id }}')" class="btn btn-danger btn-sm">
+                                        <!-- Use url_for here so Flask builds the correct URL -->
+                                        <a href="javascript:void(0);" onclick="confirmarEliminacion('{{ url_for('borrar_tareas', id=tarea.id) }}')" class="btn btn-danger btn-sm"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="bottom"
+                                        title="Eliminar tarea"
+                                        >
                                             <i class="bi bi-trash-fill me-1"></i> Eliminar
                                         </a>
                                     </td>
                                 </tr>
-
-                                <!-- Edit Task Modal -->
-                                <div class="modal fade" id="editTaskModal{{ tarea.id }}" tabindex="-1" aria-labelledby="editTaskModalLabel{{ tarea.id }}" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="editTaskModalLabel{{ tarea.id }}">Editar Tarea</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="{{ url_for('editar_tarea') }}" method="POST">
-                                                    <input type="hidden" name="id" value="{{ tarea.id }}">
-                                                    <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control" name="titulo" value="{{ tarea.titulo }}" placeholder="Título de la tarea" required>
-                                                        <label>Título de la tarea</label>
-                                                    </div>
-                                                    <div class="form-floating mb-3">
-                                                        <textarea class="form-control" name="descripcion" placeholder="Descripción" style="height: 100px" required>{{ tarea.descripcion }}</textarea>
-                                                        <label>Descripción</label>
-                                                    </div>
-                                                    <div class="form-floating mb-3">
-                                                        <input type="date" class="form-control" name="fecha_vencimiento" value="{{ tarea.fecha_vencimiento }}" required>
-                                                        <label>Fecha de Vencimiento</label>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             {% endfor %}
                         </tbody>
                     </table>
-                </div>
+
+                    <!-- Modals moved OUTSIDE the <tbody> to keep HTML valid -->
+                    {% for tarea in tareas %}
+                        <div class="modal fade" id="editTaskModal{{ tarea.id }}" tabindex="-1" aria-labelledby="editTaskModalLabel{{ tarea.id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editTaskModalLabel{{ tarea.id }}">Editar Tarea</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="{{ url_for('editar_tarea') }}" method="POST">
+                                            <!-- If you use CSRF protection (Flask-WTF), include the token: -->
+                                            {# {{ form.hidden_tag() }} or <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"> #}
+
+                                            <input type="hidden" name="id" value="{{ tarea.id }}">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" name="titulo" value="{{ tarea.titulo }}" placeholder="Título de la tarea" required>
+                                                <label>Título de la tarea</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <textarea class="form-control" name="descripcion" placeholder="Descripción" style="height: 100px" required>{{ tarea.descripcion }}</textarea>
+                                                <label>Descripción</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="date" class="form-control" name="fecha_vencimiento" value="{{ tarea.fecha_vencimiento }}" required>
+                                                <label>Fecha de Vencimiento</label>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div> <!-- /.table-responsive -->
             {% else %}
                 <div class="alert alert-info text-center" role="alert">
                     No hay tareas registradas.
@@ -111,8 +131,14 @@
     </div>
 </div>
 
-<!-- SweetAlert2 for delete confirmation -->
+<!-- Helper to read CSRF cookie if you use it -->
 <script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
     function confirmarEliminacion(url) {
         Swal.fire({
             title: '¿Estás seguro?',
@@ -130,39 +156,41 @@
         });
     }
 
-    function actualizarEstadoTarea(id_tarea, nuevo_estado) {
-        $.ajax({
-            url: '/actualizar_estado_tarea/' + id_tarea,
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ estado: nuevo_estado }),
-            success: function(response) {
-                if (response.success) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Estado actualizado',
-                        text: response.message,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: response.message,
-                        showConfirmButton: true
-                    });
-                }
+    function actualizarEstadoTarea(tareaId, nuevoEstado) {
+        fetch(`/actualizar_estado_tarea/${tareaId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // If using CSRF tokens stored in a cookie named 'csrf_token', send it:
+                'X-CSRFToken': getCookie('csrf_token') || ''
             },
-            error: function(xhr, status, error) {
+            body: JSON.stringify({ estado: nuevoEstado }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Actualizado!',
+                    text: data.message,
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            } else {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error de conexión',
-                    text: 'No se pudo conectar con el servidor para actualizar el estado.',
-                    showConfirmButton: true
+                    title: 'Error',
+                    text: data.message || 'No se pudo actualizar el estado.'
                 });
-                console.error("Error AJAX:", status, error);
             }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de conexión',
+                text: 'No se pudo comunicar con el servidor.'
+            });
         });
     }
 </script>
@@ -179,7 +207,7 @@
                     text: '<i class="bi bi-clipboard-check-fill"></i> Copiar',
                     className: 'btn btn-secondary',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5] // Incluir la nueva columna de estado
+                        columns: [0, 1, 2, 3, 4, 5]
                     }
                 },
                 {
@@ -187,7 +215,7 @@
                     text: '<i class="bi bi-file-earmark-excel-fill"></i> Excel',
                     className: 'btn btn-success',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5] // Incluir la nueva columna de estado
+                        columns: [0, 1, 2, 3, 4, 5]
                     }
                 },
                 {
@@ -195,12 +223,12 @@
                     text: '<i class="bi bi-file-earmark-pdf-fill"></i> PDF',
                     className: 'btn btn-danger',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5] // Incluir la nueva columna de estado
+                        columns: [0, 1, 2, 3, 4, 5]
                     }
                 }
             ],
             language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
             }
         });
     });

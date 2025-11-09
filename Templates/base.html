@@ -80,6 +80,9 @@
             <!-- 🔹 centrado en desktop, stack en mobile -->
             <li class="nav-item">
               <a class="nav-link text-white" href="{{ url_for('inicio') }}"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Ir a la pagina principal"
                 >Inicio</a
               >
             </li>
@@ -90,11 +93,17 @@
               <a
                 class="nav-link text-white"
                 href="{{ url_for('contactopost') }}"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Ir a la pagina de contacto"
                 >Contactos</a
               >
             </li>
             <li class="nav-item">
               <a class="nav-link text-white" href="{{ url_for('acercaDe') }}"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Ir a la pagina de Acerca de"
                 >Acerca de</a
               >
             </li>
@@ -107,7 +116,7 @@
             {% if session.get('rol') == 1 %}
             <a class="btn me-2 fw-bold" style="background-color: #20c997; color: white" href="{{ url_for('admin') }}">Panel Admin</a>
             {% else %}
-            <a class="btn me-2 fw-bold" style="background-color: #20c997; color: white" href="{{ url_for('panel_usuario') }}">Mi Panel</a>
+            <a class="btn me-2 fw-bold" style="background-color: #20c997; color: white" href="{{ url_for('inicio') }}">Mi Panel</a> {# Redirige a inicio por ahora, ya que panel_usuario no existe #}
             {% endif %}
             <a class="btn fw-bold" style="background-color: #dc3545; color: white" href="{{ url_for('logout') }}">Cerrar Sesión</a>
           </div>
@@ -117,12 +126,17 @@
               class="btn me-2 fw-bold"
               style="background-color: #20c997; color: white"
               href="{{ url_for('Registro') }}"
-              >Registrarse</a
-            >
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Registrate"
+              >Registrarse</a>
             <a
               class="btn fw-bold"
               style="background-color: #ffce85; color: #0d2d62"
               href="{{ url_for('login') }}"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Inicia sesion"
               >Login</a
             >
           </div>
@@ -163,6 +177,9 @@
                 href="https://www.facebook.com/"
                 target="_blank"
                 class="text-white text-decoration-none"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Ir a Facebook"
               >
                 <i class="bi bi-facebook"></i> Facebook
               </a>
@@ -172,6 +189,9 @@
                 href="https://www.instagram.com/"
                 target="_blank"
                 class="text-white text-decoration-none"
+                data-bs-toggle="tooltip"
+                data-bs-placement="bottom"
+                title="Ir a Instagram"
               >
                 <i class="bi bi-instagram"></i> Instagram
               </a>
@@ -206,6 +226,7 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
     {% block scripts %}{% endblock %}
   </body>
