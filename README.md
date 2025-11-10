@@ -1,9 +1,9 @@
 ## Intalacion de archivos requeridos
 
-**Crear el archivo**
+** Crear el archivo **
 pip freeze > requeriments.txt
 
-**Instalarlos**
+** Instalarlos **
 pip install -r requeriments.txt
 
 ## Recursos:
