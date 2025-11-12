@@ -16,6 +16,8 @@ Gestor de base de datos
 Mysql
 
 ## Vista principal
-![alt text](image.png)
-![alt text](image2.png)
 ![alt text](image3.png)
+## Vista del dashboard
+![alt text](image.png)
+## Vista Login
+![alt text](image2.png)
